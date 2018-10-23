@@ -5,6 +5,8 @@ import moment from 'moment'
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar'
 
+import { imgDetailsUrl } from '../config'
+
 class Photo extends React.Component{
   state = {
     author: '',
@@ -13,9 +15,8 @@ class Photo extends React.Component{
   }
 
   componentDidMount() {
-    const url = `https://api.flickr.com/services/rest/?method=flickr.photos.getInfo&api_key=1649bb2d4393700c1740c303b20be07a&photo_id=${this.props.photo.id}&format=json&nojsoncallback=1`
 
-    fetch(url)
+    fetch(imgDetailsUrl(this.props.photo.id))
       .then(response => response.json())
       .then(data => this.setState({
         author: data.photo.owner.username,
