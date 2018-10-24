@@ -9,24 +9,15 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 import CameraIcon from '@material-ui/icons/PhotoCamera';
 import Gallery from './Gallery/Gallery'
 
-import { searchUrl } from './config'
-
 const App = observer(
   class App extends Component {
-    state = {
-      photos: [],
-      isLoading: true,
-    }
 
     componentDidMount() {
-      this.setState({ isLoading: true })
-      fetch(searchUrl)
-        .then(response => response.json())
-        .then(data => this.setState({ photos: data.photos.photo, isLoading: false }))
+      this.props.store.photos.fetch()
     }
 
     render() {
-      const { photos, isLoading } = this.state
+      const { photos, isLoading } = this.props.store.photos
 
       return (
         <div>
